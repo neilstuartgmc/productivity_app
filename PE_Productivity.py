@@ -71,11 +71,11 @@ with right_column:
     st.subheader(f" € {average_sale_by_wo}")
 
 df_filtered_sidebar = df[
-    df["Year"].str.contains(year) &
-    df["Month"].str.contains(month) &
-    df["Cell"].str.contains(cell) &
-    df["Resource"].str.contains(resource) &
-    df["Outcome"].str.contains(outcome)
+    df["Year"].series.str.contains(year) &
+    df["Month"].series.str.contains(month) &
+    df["Cell"].series.str.contains(cell) &
+    df["Resource"].series.str.contains(resource) &
+    df["Outcome"].series.str.contains(outcome)
 ]
 
 
