@@ -21,7 +21,7 @@ df = get_data_from_excel()
 
 # ---- SIDEBAR ----
 st.sidebar.header("Please Filter Here:")
-year = st.sidebar.multiselect(
+year = st.sidebar.selectbox(
     "Select the Year:",
     options=df["Year"].unique(),
     default=df["Year"].unique()
