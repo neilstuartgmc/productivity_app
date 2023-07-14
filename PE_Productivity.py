@@ -27,28 +27,28 @@ year = st.sidebar.selectbox(
     #default=df["Year"].unique()
 )
 
-month = st.sidebar.multiselect(
+month = st.sidebar.selectbox(
     "Select the Month:",
     options=df["Month"].unique(),
-    default=df["Month"].unique(),
+    #default=df["Month"].unique(),
 )
 
-cell = st.sidebar.multiselect(
+cell = st.sidebar.selectbox(
     "Select the Cell:",
     options=df["Cell"].unique(),
-    default=df["Cell"].unique()
+    #default=df["Cell"].unique()
 )
 
-resource = st.sidebar.multiselect(
+resource = st.sidebar.selectbox(
     "Select the Resource:",
     options=df["Resource"].unique(),
-    default=df["Resource"].unique()
+    #default=df["Resource"].unique()
 )
 
-outcome = st.sidebar.multiselect(
+outcome = st.sidebar.selectbox(
     "Select the Outcome:",
     options=df["Outcome"].unique(),
-    default=df["Outcome"].unique()
+    #default=df["Outcome"].unique()
 )
 
 df_selection = df.query(
