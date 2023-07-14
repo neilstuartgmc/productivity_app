@@ -24,7 +24,7 @@ st.sidebar.header("Please Filter Here:")
 year = st.sidebar.selectbox(
     "Select the Year:",
     options=df["Year"].unique(),
-    default=df["Year"].unique()
+    #default=df["Year"].unique()
 )
 
 month = st.sidebar.multiselect(
