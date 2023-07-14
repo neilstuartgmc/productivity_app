@@ -29,25 +29,25 @@ year = st.sidebar.selectbox(
 
 month = st.sidebar.selectbox(
     "Select the Month:",
-    options=df["Month"].unique(),
+    options=[df["Month"].unique()],
     #default=df["Month"].unique(),
 )
 
 cell = st.sidebar.selectbox(
     "Select the Cell:",
-    options=df["Cell"].unique(),
+    options=[df["Cell"].unique()],
     #default=df["Cell"].unique()
 )
 
 resource = st.sidebar.selectbox(
     "Select the Resource:",
-    options=df["Resource"].unique(),
+    options=[df["Resource"].unique()],
     #default=df["Resource"].unique()
 )
 
 outcome = st.sidebar.selectbox(
     "Select the Outcome:",
-    options=df["Outcome"].unique(),
+    options=[df["Outcome"].unique()],
     #default=df["Outcome"].unique()
 )
 
