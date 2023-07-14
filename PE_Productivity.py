@@ -1,15 +1,13 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-import base64
-import io
 
 st.set_page_config(page_title="Sales Dashboard", page_icon=":bar_chart:", layout="wide")
 
 @st.cache_data
 def get_data_from_excel():
 
-    df = pd.read_excel(io=r'PE Completions Raw.xlsx',
+    df = pd.read_excel(io=r'C:\Users\neil.stuart\PycharmProjects\PE Productivity\PE Completions Raw.xlsx',
                         engine='openpyxl',
                         sheet_name='PE',
                         usecols='A:AZ')
@@ -21,34 +19,34 @@ df = get_data_from_excel()
 
 # ---- SIDEBAR ----
 st.sidebar.header("Please Filter Here:")
-year = st.sidebar.selectbox(
+year = st.sidebar.multiselect(
     "Select the Year:",
     options=df["Year"].unique(),
-    #default=df["Year"].unique()
+    default=df["Year"].unique()
 )
 
-month = st.sidebar.selectbox(
+month = st.sidebar.multiselect(
     "Select the Month:",
     options=df["Month"].unique(),
-    #default=df["Month"].unique(),
+    default=df["Month"].unique(),
 )
 
-cell = st.sidebar.selectbox(
+cell = st.sidebar.multiselect(
     "Select the Cell:",
     options=df["Cell"].unique(),
-    #default=df["Cell"].unique()
+    default=df["Cell"].unique()
 )
 
-resource = st.sidebar.selectbox(
+resource = st.sidebar.multiselect(
     "Select the Resource:",
     options=df["Resource"].unique(),
-    #default=df["Resource"].unique()
+    default=df["Resource"].unique()
 )
 
-outcome = st.sidebar.selectbox(
+outcome = st.sidebar.multiselect(
     "Select the Outcome:",
     options=df["Outcome"].unique(),
-    #default=df["Outcome"].unique()
+    default=df["Outcome"].unique()
 )
 
 df_selection = df.query(
@@ -69,34 +67,6 @@ with middle_column:
 with right_column:
     st.subheader("Average Sales Per WO:")
     st.subheader(f" € {average_sale_by_wo}")
-
-df_filtered_sidebar = df[
-    df["Year"].str.contains(year) &
-    df["Month"].str.contains(month) &
-    df["Cell"].str.contains(cell) &
-    df["Resource"].str.contains(resource) &
-    df["Outcome"].str.contains(outcome)
-]
-
-
-
-
-st.markdown("### Detailed Data View")
-st.dataframe(df_filtered_sidebar[['Work Order No.','Resolution Type','Job Plan Code (WO)','Cell','Resource','Week','Program Code','All Address Field','PR Total Cost']], use_container_width=True)
-
-
-# Convert the filtered DataFrame into a XLSX file in memory
-to_excel = io.BytesIO()
-df_filtered_sidebar.to_excel(to_excel, index=False, header=True)
-to_excel.seek(0)
-
-# Encode XLSX file in base64
-b64 = base64.b64encode(to_excel.read()).decode()
-
-# Generate download link
-href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="follow_up_data.xlsx">Download file in XLSX</a>'
-st.markdown(href, unsafe_allow_html=True)
-
 
 # ---- HIDE STREAMLIT STYLE ----
 hide_st_style = """
