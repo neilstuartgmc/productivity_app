@@ -21,11 +21,6 @@ df["Weekending1"] = df["Weekending"].dt.date
 
 # ---- SIDEBAR ----
 
-# Sidebar Logo
-image = Image.open("images/GMClogo.png")
-st.sidebar.image(image, use_column_width=True)
-
-
 st.sidebar.header("Please Filter Here:")
 
 # Dynamic month filter
