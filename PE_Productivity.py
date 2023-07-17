@@ -58,6 +58,13 @@ outcome = st.sidebar.multiselect(
 df_selection = df.query(
     "Year == @year & Month ==@month & Week ==@week & Cell == @cell & Resource == @resource & Outcome == @outcome"
 )
+
+@st.experimental_memo
+def convert_df(df):
+   return df.to_csv(index=False).encode('utf-8')
+
+csv = convert_df(df_selection)
+
 # TOP KPI's
 sales_value = int(df_selection["PR Total Cost"].sum())
 total_wo = int(df_selection["PR Total Cost"].count())
@@ -75,6 +82,14 @@ with right_column:
     st.subheader(f" € {average_sale_by_wo}")
 
 st.dataframe(df_selection)
+
+st.download_button(
+   "Press to Download",
+   csv,
+   "selected_file.csv",
+   "text/csv",
+   key='download-csv'
+)
 
 # ---- HIDE STREAMLIT STYLE ----
 hide_st_style = """
