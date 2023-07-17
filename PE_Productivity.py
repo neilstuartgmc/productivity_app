@@ -21,38 +21,38 @@ df = get_data_from_excel()
 st.sidebar.header("Please Filter Here:")
 year = st.sidebar.multiselect(
     "Select the Year:",
-    options=df["Year"].unique(),
-    default=df["Year"].unique()
+    options=sorted(df["Year"].unique()),
+    default=sorted(df["Year"].unique())
 )
 
 month = st.sidebar.multiselect(
     "Select the Month:",
-    options=df["Month"].unique(),
-    default=df["Month"].unique(),
+    options=sorted(df["Month"].unique()),
+    default=sorted(df["Month"].unique()),
 )
 
 week = st.sidebar.multiselect(
     "Select the Week:",
-    options=df["Week"].unique(),
+    options=sorted(df["Week"].unique()),
     default=[41],
 )
 
 cell = st.sidebar.multiselect(
     "Select the Cell:",
-    options=df["Cell"].unique(),
-    default=df["Cell"].unique()
+    options=sorted(df["Cell"].unique()),
+    default=sorted(df["Cell"].unique())
 )
 
 resource = st.sidebar.multiselect(
     "Select the Resource:",
-    options=df["Resource"].unique(),
-    default=df["Resource"].unique()
+    options=sorted(df["Resource"].unique()),
+    default=sorted(df["Resource"].unique())
 )
 
 outcome = st.sidebar.multiselect(
     "Select the Outcome:",
-    options=df["Outcome"].unique(),
-    default=df["Outcome"].unique()
+    options=sorted(df["Outcome"].unique()),
+    default=sorted(df["Outcome"].unique())
 )
 
 df_selection = df.query(
