@@ -34,7 +34,7 @@ month = st.sidebar.multiselect(
 week = st.sidebar.multiselect(
     "Select the Week:",
     options=df["Week"].unique(),
-    default=[41]),
+    default=[41],
 )
 
 cell = st.sidebar.multiselect(
