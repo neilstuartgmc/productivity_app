@@ -21,6 +21,7 @@ df["Weekending1"] = df["Weekending"].dt.date
 
 # ---- SIDEBAR ----
 
+
 st.sidebar.header("Please Filter Here:")
 
 # Dynamic month filter
@@ -71,12 +72,21 @@ if cell:
 else:
     resource = []
 
+if resource:
+    outcome = st.sidebar.multiselect(
+        "Outcome:",
+        options=sorted(df[df["Resource"].isin(resource)]["Outcome"].unique()),
+        default=sorted(df[df["Resource"].isin(resource)]["Outcome"].unique())
+)
+else:
+    outcome = []
 
 df_filtered_sidebar = df[
     df["Year"].isin(year) &
     df["Weekending1"].isin(weekending) &
     df["Cell"].isin(cell) &
-    df["Resource"].isin(resource)
+    df["Resource"].isin(resource) &
+    df["Outcome"].isin(outcome)
 ]
 
 df_filtered_sidebar = df_filtered_sidebar.sort_values(by=["Year","Resource"], ascending=False)
@@ -115,15 +125,6 @@ st.download_button(
     key='download-csv'
 )
 
-# ---- HIDE STREAMLIT STYLE ----
-hide_st_style = """
-                <style>
-                #MainMenu {visibility: hidden;}
-                footer {visibility: hidden;}
-                header {visibility: hidden;}
-                </style>
-                """
-st.markdown(hide_st_style, unsafe_allow_html=True)
 sales_by_cell = (
     df_filtered_sidebar.groupby(by=["Resource"]).count()[["Outcome"]]
 )
@@ -160,3 +161,12 @@ fig_sales_value_by_cell.update_layout(
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_sales_value_by_cell, use_container_width=True)
 right_column.plotly_chart(fig_product_sales, use_container_width=True)
+# ---- HIDE STREAMLIT STYLE ----
+hide_st_style = """
+                <style>
+                #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+                </style>
+                """
+st.markdown(hide_st_style, unsafe_allow_html=True)
