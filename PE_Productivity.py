@@ -143,7 +143,9 @@ fig_product_sales.update_layout(
     xaxis=(dict(showgrid=False))
 )
 
-sales_value_by_cell = (df_filtered_sidebar.groupby(by=["Resource"]).sum()[["PR Total Cost"]])
+sales_value_by_cell =  (
+    df_filtered_sidebar.groupby(by=["Resource"]).count()[["PR Total Cost"]]
+)
 fig_sales_value_by_cell = px.bar(
     sales_value_by_cell,
     x="PR Total Cost",
