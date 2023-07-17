@@ -63,9 +63,11 @@ df_selection = df.query(
     "Year == @year & Month ==@month & Weekending1 ==@week & Cell == @cell & Resource == @resource & Outcome == @outcome"
 )
 
+
 @st.experimental_memo
 def convert_df(df):
-   return df.to_csv(index=False).encode('utf-8')
+    return df.to_csv(index=False).encode('utf-8')
+
 
 csv = convert_df(df_selection)
 
@@ -88,19 +90,19 @@ with right_column:
 st.dataframe(df_selection)
 
 st.download_button(
-   "Press to Download",
-   csv,
-   "selected_file.csv",
-   "text/csv",
-   key='download-csv'
+    "Press to Download",
+    csv,
+    "selected_file.csv",
+    "text/csv",
+    key='download-csv'
 )
 
 # ---- HIDE STREAMLIT STYLE ----
 hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+                <style>
+                #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+                </style>
+                """
 st.markdown(hide_st_style, unsafe_allow_html=True)
