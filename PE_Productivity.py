@@ -21,47 +21,70 @@ df["Weekending1"] = df["Weekending"].dt.date
 
 # ---- SIDEBAR ----
 
+# Sidebar Logo
+image = Image.open("Image/GMClogo.png")
+st.sidebar.image(image, use_column_width=True)
+
 
 st.sidebar.header("Please Filter Here:")
+
+# Dynamic month filter
 year = st.sidebar.multiselect(
-    "Select the Year:",
-    options=sorted(df["Year"].unique()),
-    default=sorted(df["Year"].unique())
+    "Year:",
+    options=df["Year"].unique(),
+    default=[]
+
 )
 
-month = st.sidebar.multiselect(
-    "Select the Month:",
-    options=sorted(df["Month"].unique()),
-    default=sorted(df["Month"].unique()),
-)
+# Filter the DataFrame with selected years
+year_selec = df[df["Year"].isin(year)]
 
-week = st.sidebar.multiselect(
-    "Select the Week:",
-    options=sorted(df["Weekending1"].unique()),
-    default=sorted(df["Weekending1"].unique()),
-)
+# unique years
+weekending_selec = year_selec["Weekending1"].unique()
+cell_selec = year_selec["Cell"].unique()
+resource_selec = year_selec["Resource"].unique()
+outcome_selec = year_selec["Outcome"].unique()
 
-cell = st.sidebar.multiselect(
-    "Select the Cell:",
-    options=sorted(df["Cell"].unique()),
-    default=sorted(df["Cell"].unique())
-)
 
-resource = st.sidebar.multiselect(
-    "Select the Resource:",
-    options=sorted(df["Resource"].unique()),
-    default=sorted(df["Resource"].unique())
-)
 
-outcome = st.sidebar.multiselect(
-    "Select the Outcome:",
-    options=sorted(df["Outcome"].unique()),
-    default=sorted(df["Outcome"].unique())
-)
+if year:
+    weekending = st.sidebar.multiselect(
+        "Weekending:",
+        options=sorted(weekending_selec),
+        default=[]
+    )
+else:
+    weekending= []
 
-df_selection = df.query(
-    "Year == @year & Month ==@month & Weekending1 ==@week & Cell == @cell & Resource == @resource & Outcome == @outcome"
+
+if weekending:
+    cell = st.sidebar.multiselect(
+        "Cell:",
+        options=sorted(df[df["Weekending1"].isin(weekending)]["Cell"].unique()),
+        default=sorted(df[df["Weekending1"].isin(weekending)]["Cell"].unique())
+
 )
+else:
+    cell = []
+
+if cell:
+    resource = st.sidebar.multiselect(
+        "Resource:",
+        options=sorted(df[df["Cell"].isin(cell)]["Resource"].unique()),
+        default=sorted(df[df["Cell"].isin(cell)]["Resource"].unique())
+)
+else:
+    resource = []
+
+
+df_filtered_sidebar = df[
+    df["Year"].isin(year) &
+    df["Weekending1"].isin(weekending) &
+    df["Cell"].isin(cell) &
+    df["Resource"].isin(resource)
+]
+
+df_filtered_sidebar = df_filtered_sidebar.sort_values(by=["Year","Resource"], ascending=False)
 
 
 @st.experimental_memo
@@ -69,12 +92,12 @@ def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
 
-csv = convert_df(df_selection)
+csv = convert_df(df_filtered_sidebar)
 
 # TOP KPI's
-sales_value = int(df_selection["PR Total Cost"].sum())
-total_wo = int(df_selection["PR Total Cost"].count())
-average_sale_by_wo = round(df_selection["PR Total Cost"].mean(), 2)
+sales_value = round(df_filtered_sidebar["PR Total Cost"].sum(),2)
+total_wo = int(df_filtered_sidebar["PR Total Cost"].count())
+average_sale_by_wo = round(df_filtered_sidebar["PR Total Cost"].mean(), 2)
 
 left_column, middle_column, right_column = st.columns(3)
 with left_column:
@@ -87,7 +110,7 @@ with right_column:
     st.subheader("Average Sales Per WO:")
     st.subheader(f" € {average_sale_by_wo}")
 
-st.dataframe(df_selection)
+st.dataframe(df_filtered_sidebar)
 
 st.download_button(
     "Press to Download",
