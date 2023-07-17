@@ -128,6 +128,7 @@ st.download_button(
 sales_by_cell = (
     df_filtered_sidebar.groupby(by=["Resource"]).count()[["Outcome"]]
 )
+
 fig_product_sales = px.bar(
     sales_by_cell,
     x="Outcome",
