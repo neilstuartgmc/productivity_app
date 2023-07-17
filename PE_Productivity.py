@@ -31,6 +31,12 @@ month = st.sidebar.multiselect(
     default=df["Month"].unique(),
 )
 
+week = st.sidebar.multiselect(
+    "Select the Week:",
+    options=df["Week"].unique(),
+    default=df["Week"].unique(),
+)
+
 cell = st.sidebar.multiselect(
     "Select the Cell:",
     options=df["Cell"].unique(),
@@ -50,7 +56,7 @@ outcome = st.sidebar.multiselect(
 )
 
 df_selection = df.query(
-    "Year == @year & Month ==@month & Cell == @cell & Resource == @resource & Outcome == @outcome"
+    "Year == @year & Month ==@month & Week ==@week & Cell == @cell & Resource == @resource & Outcome == @outcome"
 )
 # TOP KPI's
 sales_value = int(df_selection["PR Total Cost"].sum())
