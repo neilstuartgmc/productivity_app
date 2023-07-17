@@ -36,7 +36,7 @@ st.write(df['Week'].unique())
 week = st.sidebar.multiselect(
     "Select the Week:",
     options=df["Week"].unique(),
-    default=df["Week"].unique(),
+    default=[41]),
 )
 
 cell = st.sidebar.multiselect(
