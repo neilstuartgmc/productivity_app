@@ -25,12 +25,14 @@ year = st.sidebar.multiselect(
     default=df["Year"].unique()
 )
 
+st.write(df['Month'].unique())
 month = st.sidebar.multiselect(
     "Select the Month:",
     options=df["Month"].unique(),
     default=df["Month"].unique(),
 )
 
+st.write(df['Week'].unique())
 week = st.sidebar.multiselect(
     "Select the Week:",
     options=df["Week"].unique(),
