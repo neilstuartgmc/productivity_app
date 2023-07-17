@@ -16,6 +16,8 @@ def get_data_from_excel():
     return df
 
 df = get_data_from_excel()
+df["Weekending"] = pd.to_datetime(df["Weekending"])
+df["Weekending1"] = df["Weekending"].dt.date
 
 # ---- SIDEBAR ----
 st.sidebar.header("Please Filter Here:")
@@ -33,8 +35,8 @@ month = st.sidebar.multiselect(
 
 week = st.sidebar.multiselect(
     "Select the Week:",
-    options=sorted(df["Week"].unique()),
-    default=[41],
+    options=sorted(df["Weekending1"].unique()),
+    default=sorted(df["Weekending1"].unique()),
 )
 
 cell = st.sidebar.multiselect(
@@ -56,7 +58,7 @@ outcome = st.sidebar.multiselect(
 )
 
 df_selection = df.query(
-    "Year == @year & Month ==@month & Week ==@week & Cell == @cell & Resource == @resource & Outcome == @outcome"
+    "Year == @year & Month ==@month & Weekending1 ==@week & Cell == @cell & Resource == @resource & Outcome == @outcome"
 )
 
 @st.experimental_memo
