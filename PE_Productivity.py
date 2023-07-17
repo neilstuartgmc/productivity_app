@@ -74,6 +74,8 @@ with right_column:
     st.subheader("Average Sales Per WO:")
     st.subheader(f" € {average_sale_by_wo}")
 
+st.dataframe(df_selection)
+
 # ---- HIDE STREAMLIT STYLE ----
 hide_st_style = """
             <style>
