@@ -144,7 +144,7 @@ fig_product_sales.update_layout(
 )
 
 sales_value_by_cell = (
-    df_filtered_sidebar.groupby(by=["Resource"]).sum()[["PR Total Cost"]]
+    df_filtered_sidebar.groupby(by=["Resource"]).sum()[["Outcome"]]
 )
 fig_sales_value_by_cell = px.bar(
     sales_value_by_cell,
