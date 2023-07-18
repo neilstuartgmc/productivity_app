@@ -101,7 +101,7 @@ csv = convert_df(df_filtered_sidebar)
 
 # TOP KPI's
 sales_value = round(df_filtered_sidebar["PR Total Cost"].sum(),2)
-total_wo = int(df_filtered_sidebar["PR Total Cost"].count())
+total_wo = (df_filtered_sidebar["Outcome"] == 'Success').sum()
 average_sale_by_wo = round(df_filtered_sidebar["PR Total Cost"].mean(), 2)
 
 left_column, middle_column, right_column = st.columns(3)
