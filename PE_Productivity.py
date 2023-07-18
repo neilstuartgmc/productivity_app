@@ -148,17 +148,18 @@ sales_value_by_cell =  (
 )
 fig_sales_value_by_cell = px.bar(
     sales_value_by_cell,
-    x="PR Total Cost",
-    y=sales_value_by_cell.index,
-    orientation="h",
-    title="<b>Sales Value per Resource</b>",
-    color_discrete_sequence=["#0083B8"] * len(sales_value_by_cell),
+    x=sales_value_by_cell.index,
+    y="PR Total Cost",
+    title="<b>Sales by hour</b>",
+    color_discrete_sequence=["#0083B8"] * len(sales_by_hour),
     template="plotly_white",
 )
 fig_sales_value_by_cell.update_layout(
+    xaxis=dict(tickmode="linear"),
     plot_bgcolor="rgba(0,0,0,0)",
-    xaxis=(dict(showgrid=False))
+    yaxis=(dict(showgrid=False)),
 )
+
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_sales_value_by_cell, use_container_width=True)
 right_column.plotly_chart(fig_product_sales, use_container_width=True)
