@@ -134,7 +134,7 @@ fig_product_sales = px.bar(
     x="Outcome",
     y=sales_by_cell.index,
     orientation="h",
-    title="<b>Sales by Resource</b>",
+    title="<b>WO Complete per Resource</b>",
     color_discrete_sequence=["#0083B8"] * len(sales_by_cell),
     template="plotly_white",
 )
