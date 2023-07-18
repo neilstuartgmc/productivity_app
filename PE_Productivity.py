@@ -143,7 +143,9 @@ fig_product_sales.update_layout(
     xaxis=(dict(showgrid=False))
 )
 
-sales_value_by_cell = df_filtered_sidebar.groupby(by=["Resource"]).sum()[["PR Total Cost"]]
+sales_value_by_cell = (
+    df_filtered_sidebar.groupby(by=["Resource"]).sum()[["PR Total Cost"]]
+)
 fig_sales_value_by_cell = px.bar(
     sales_value_by_cell,
     x="PR Total Cost",
@@ -157,7 +159,6 @@ fig_sales_value_by_cell.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     xaxis=(dict(showgrid=False))
 )
-
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_sales_value_by_cell, use_container_width=True)
 right_column.plotly_chart(fig_product_sales, use_container_width=True)
