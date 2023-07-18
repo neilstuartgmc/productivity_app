@@ -144,12 +144,12 @@ fig_product_sales.update_layout(
 )
 
 sales_value_by_cell = (
-    df_filtered_sidebar.groupby(by=["Resource"]).count()[["PR Total Cost"]]
+    df_filtered_sidebar.groupby(by=["Resource"]).count()[["Outcome"]]
 )
 
 fig_sales_value_by_cell = px.bar(
     sales_value_by_cell,
-    x="PR Total Cost",
+    x="Outcome",
     y=sales_by_cell.index,
     orientation="h",
     title="<b>Sales by Resource</b>",
