@@ -10,7 +10,7 @@ def get_data_from_excel():
     df = pd.read_excel(io=r'PE Completions Raw.xlsx',
                         engine='openpyxl',
                         sheet_name='PE',
-                        usecols='A:AX')
+                        usecols='A:BA')
 
 
     return df
